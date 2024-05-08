@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/sber-task/static/css/main.c049d542.css",
+    "main.js": "/sber-task/static/js/main.9c3fc4b7.js",
+    "index.html": "/sber-task/index.html",
+    "main.c049d542.css.map": "/sber-task/static/css/main.c049d542.css.map",
+    "main.9c3fc4b7.js.map": "/sber-task/static/js/main.9c3fc4b7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c049d542.css",
+    "static/js/main.9c3fc4b7.js"
+  ]
+}
