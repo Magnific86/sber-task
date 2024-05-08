@@ -20,7 +20,7 @@ export const App = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    // dispatch(fetchQuizList())
+    dispatch(fetchQuizList())
   }, [])
 
   useEffect(() => {
