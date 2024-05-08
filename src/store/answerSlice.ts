@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
 type AnsersSliceState = {
-  answer: Record<string, string>
-  isQuizEnded: boolean // param for showing answers
+  answer: Record<string, string[]>
+  isQuizEnded: boolean // param for showing / not showing answers
 }
 
 const initialState: AnsersSliceState = {
@@ -12,7 +12,7 @@ const initialState: AnsersSliceState = {
 
 type PayloadAnswer = {
   id: string
-  answer: string
+  answer: string[]
 }
 
 const slice = createSlice({
@@ -28,7 +28,6 @@ const slice = createSlice({
       state.isQuizEnded = true
     },
     startNewQuiz(state) {
-      // state = initialState
       state.answer = {}
       state.isQuizEnded = false
     },

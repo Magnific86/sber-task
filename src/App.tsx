@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { fetchQuizList } from "./store/quizSlice"
 import { useAppDispatch, useAppSelector } from "./store/storeHooks"
-import { QuizItem } from "./types.ts"
+import { QuizItem } from "./types"
 import { QuiestionCard } from "./QuiestionCard"
 import { addAnswer, endQuiz, startNewQuiz } from "./store/answerSlice"
 import { Button, Container, DangerousErrorText, H1, QuestionNumber, QuestionNumbers, WelcomeContainer } from "./components/styled"
@@ -31,10 +31,8 @@ export const App = () => {
 
   const allCountQuestions = Array.from({ length }, (_, i) => i + 1)
 
-  const onConfirmHandler = (id: string, answer: string) => {
+  const onConfirmHandler = (id: string, answer: string[]) => {
     console.log("onConfirmHandler answer", answer)
-
-    console.log("onConfirmHandler count", count)
 
     if (!answer) return
 
@@ -65,7 +63,7 @@ export const App = () => {
   const calculateRightAnswers = (list: QuizItem[]) => {
     let result = 0
     list.forEach(el => {
-      if (answer[el.id] === el.correct_answer) {
+      if (answer[el.id][0] === el.correct_answer) {
         result += 1
       }
     })
@@ -105,6 +103,7 @@ export const App = () => {
             id={currentQuestion?.id}
             difficulty={currentQuestion?.difficulty}
             category={currentQuestion?.category}
+            type={currentQuestion?.type}
             question={currentQuestion?.question}
             allAnswers={prepareAnswers(currentQuestion?.incorrect_answers, currentQuestion?.correct_answer)}
             correctAnswer={currentQuestion?.correct_answer}
@@ -126,6 +125,7 @@ export const App = () => {
             <QuiestionCard
               key={el.id}
               id={el.id}
+              type={el.type}
               category={el.category}
               question={el.question}
               difficulty={el.difficulty}

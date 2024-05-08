@@ -4,7 +4,7 @@ export interface QuizItemNoId {
   difficulty: string
   incorrect_answers: string[]
   question: string
-  type: string
+  type: QuestionType
 }
 
 export interface QuizItem extends QuizItemNoId {
@@ -12,3 +12,5 @@ export interface QuizItem extends QuizItemNoId {
 }
 
 export type Status = "success" | "error" | "default"
+
+export type QuestionType = "multiple" | "boolean"

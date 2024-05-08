@@ -1,6 +1,6 @@
 import axios from "axios"
 import { mockAuizListData } from "../tests/functionTestData"
-import { QuizItemNoId } from "../types.ts"
+import { QuizItemNoId } from "../types"
 import { jest } from "@jest/globals"
 import { fetchQuizList } from "./quizSlice"
 import { v4 } from "uuid"

@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { Status } from "../types.ts"
+import { Status } from "../types/index.js"
 
 export const WelcomeContainer = styled.div`
   height: 100vh;
@@ -66,23 +66,24 @@ export const Button = styled.button<{ active?: boolean }>(props => ({
   boxShadow: props.active ? "0 4px 4px white" : "",
 }))
 
-export const Label = styled.label`
+export const RadioContainer = styled.label`
   color: #cdcdcd;
   display: flex;
   align-items: center;
   position: relative;
   cursor: pointer;
   padding-left: 44px;
-`
-export const Radio = styled.input`
-  position: absolute;
-  opacity: 0;
-  height: 0;
-  width: 0;
-  cursor: pointer;
+
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+    cursor: pointer;
+  }
 `
 
-export const Span = styled.span<{
+export const RadioSpan = styled.span<{
   status: Status
 }>`
   height: 30px;
@@ -96,7 +97,7 @@ export const Span = styled.span<{
   background: #0e0e0e;
   box-shadow: ${props => {
     if (props.status === "success") {
-      return "0px 10px 30px green"
+      return "5px 5px 40px green"
     } else if (props.status === "error") {
       return "10px 0px 60px red"
     } else if (props.status === "default") {
@@ -105,7 +106,7 @@ export const Span = styled.span<{
   }};
 `
 
-export const SpanInner = styled.span<{
+export const RadioSpanInner = styled.span<{
   active: boolean
 }>`
   width: 8px;
@@ -114,8 +115,8 @@ export const SpanInner = styled.span<{
   border-radius: 50%;
   box-shadow: ${props => (props.active ? "0px 0px 8px white" : "")};
 `
-export const RadioText = styled.div<{
-  status: Status
+export const Label = styled.div<{
+  status?: Status
 }>`
   text-decoration: ${props => {
     if (props.status === "success") {
@@ -126,4 +127,44 @@ export const RadioText = styled.div<{
       return ""
     }
   }};
+`
+
+export const CheckboxSpan = styled.span<{
+  status: Status
+}>`
+  height: 30px;
+  width: 30px;
+  border-radius: 15%;
+  position: absolute;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0e0e0e;
+  box-shadow: ${props => {
+    if (props.status === "success") {
+      return "5px 5px 40px green"
+    } else if (props.status === "error") {
+      return "10px 0px 60px red"
+    } else if (props.status === "default") {
+      return ""
+    }
+  }};
+`
+
+export const CheckboxContainer = styled.label<{ status?: Status }>`
+  color: #cdcdcd;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  padding-left: 44px;
+
+  input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+    cursor: pointer;
+  }
 `

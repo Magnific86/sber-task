@@ -1,9 +1,9 @@
-import { QuizItem } from "../types.ts/index.js"
+import { QuizItem, QuizItemNoId } from "../types/index.js"
 
 //Первый тест
 const QUESTION_ID = "2"
-const mockAnswer = { "1": "first correct answer", "2": "second correct answer", "3": "third correct answer" }
-const mockAnswerWithMistake = { "1": "first correct answer", "2": "second incorrect answer", "3": "third correct answer" }
+const mockAnswer = { "1": ["first correct answer"], "2": ["second correct answer"], "3": ["third correct answer"] }
+const mockAnswerWithMistake = { "1": ["first correct answer"], "2": ["second incorrect answer"], "3": ["third correct answer"] }
 const firstCaseCorrectAnswer = "second correct answer"
 const correctAnswer = "second correct answer"
 const secondCaseIncorrectAnswer = "second incorrect answer"
@@ -131,7 +131,7 @@ export const expectedArr: QuizItem[] = [
 
 // Тестовая датат ответа
 
-export const mockAuizListData = [
+export const mockAuizListData: QuizItemNoId[] = [
   {
     type: "multiple",
     difficulty: "medium",

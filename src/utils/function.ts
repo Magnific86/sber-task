@@ -1,15 +1,14 @@
-import { QuizItem, Status } from "../types.ts"
+import { QuizItem, Status } from "../types/index.js"
 
-export const detectRadioColor = (id: string, thisAnswerStr: string, correctAnswer: string, answer: Record<string, string>): Status => {
-  const IS_ANSWERED_CORRECT = correctAnswer === answer[id]
-  const IS_THIS_ANSWER_CHOOSEN = thisAnswerStr === answer[id]
+export const detectRadioColor = (id: string, thisAnswerStr: string, correctAnswer: string, answer: Record<string, string[]>): Status => {
+  //ответ правильный всегда один не смотря даже не то, что есть выбор нескольких вариантов
+  const IS_ANSWERED_CORRECT = answer[id][0] === correctAnswer
+  const IS_THIS_ANSWER_CHOOSEN = answer[id].includes(thisAnswerStr)
   const IS_THIS_ANSWER_CORRECT = correctAnswer === thisAnswerStr
 
   if (!IS_THIS_ANSWER_CHOOSEN && IS_ANSWERED_CORRECT) return "default"
 
-  if ((IS_ANSWERED_CORRECT && IS_THIS_ANSWER_CHOOSEN) || (!IS_THIS_ANSWER_CHOOSEN && IS_THIS_ANSWER_CORRECT)) {
-    return "success"
-  }
+  if (IS_THIS_ANSWER_CORRECT) return "success"
 
   if (IS_THIS_ANSWER_CHOOSEN && !IS_THIS_ANSWER_CORRECT) return "error"
 
@@ -48,8 +47,8 @@ export const sortQuestionsByDifficulty = (questionList: QuizItem[]): QuizItem[] 
 }
 
 export function hasEqualStructure(obj1: Record<string, any>, obj2: Record<string, any>) {
-  console.log('obj1', obj1)
-  console.log('obj2', obj2)
+  console.log("obj1", obj1)
+  console.log("obj2", obj2)
   return Object.keys(obj1).every((key: string): boolean => {
     const v = obj1[key]
     if (typeof v === "object" && v !== null) {

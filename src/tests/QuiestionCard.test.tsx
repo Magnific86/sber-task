@@ -7,6 +7,7 @@ const ID = "1"
 const category = "category"
 const question = "question?"
 const difficulty = "easy"
+const type = "multiple"
 const allAnswers = ["1", "2", "3", "4"]
 const correctAnswer = "1"
 
@@ -24,6 +25,7 @@ test("render QuiestionCard element: ", () => {
       id={ID}
       category={category}
       question={question}
+      type={type}
       difficulty={difficulty}
       allAnswers={allAnswers}
       correctAnswer={correctAnswer}
