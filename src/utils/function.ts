@@ -1,4 +1,7 @@
-import { QuizItem, Status } from "../types/index.js"
+import { v4 } from "uuid"
+import { QuizItem, QuizItemNoId, Status } from "../types/index.js"
+
+export const mapListToIds = (list: QuizItemNoId[]): QuizItem[] => list.map(el => ({ ...el, id: v4() }))
 
 export const detectRadioColor = (id: string, thisAnswerStr: string, correctAnswer: string, answer: Record<string, string[]>): Status => {
   //ответ правильный всегда один не смотря даже не то, что есть выбор нескольких вариантов
@@ -46,14 +49,30 @@ export const sortQuestionsByDifficulty = (questionList: QuizItem[]): QuizItem[] 
   }
 }
 
-export function hasEqualStructure(obj1: Record<string, any>, obj2: Record<string, any>) {
-  console.log("obj1", obj1)
-  console.log("obj2", obj2)
-  return Object.keys(obj1).every((key: string): boolean => {
-    const v = obj1[key]
-    if (typeof v === "object" && v !== null) {
-      return hasEqualStructure(v, obj2[key])
+// чтобы ответы были вразнобой
+export const prepareAnswers = (incorrectAnswerList: string[], correctAnswer: string) => {
+  if (!!incorrectAnswerList?.length) {
+    let randomIndex = Math.floor(Math.random() * (incorrectAnswerList?.length + 1))
+    const preparedArr = [...incorrectAnswerList]
+    preparedArr.splice(randomIndex, 0, correctAnswer)
+    return preparedArr
+  } else {
+    return []
+  }
+}
+
+export const calculateRightAnswersCount = (list: QuizItem[], answerObj: Record<string, string[]>) => {
+  console.log("list", list)
+  console.log("answerObj", answerObj)
+
+  let result = 0
+  list.forEach(el => {
+    if (answerObj[el.id][0] === el.correct_answer) {
+      result += 1
     }
-    return obj2.hasOwnProperty(key)
   })
+
+  console.log("result", result)
+
+  return result
 }

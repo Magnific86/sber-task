@@ -4,9 +4,10 @@ import { useAppDispatch, useAppSelector } from "./store/storeHooks"
 import { QuizItem } from "./types"
 import { QuiestionCard } from "./QuiestionCard"
 import { addAnswer, endQuiz, startNewQuiz } from "./store/answerSlice"
-import { Button, Container, DangerousErrorText, H1, QuestionNumber, QuestionNumbers, WelcomeContainer } from "./components/styled"
+import { Container, DangerousErrorText, H1, QuestionNumber, QuestionNumbers, WelcomeContainer } from "./components/styled"
 import { Loader } from "./components/Loader"
-import { scrollToQuestion, sortQuestionsByDifficulty } from "./utils/function"
+import { calculateRightAnswersCount, prepareAnswers, scrollToQuestion, sortQuestionsByDifficulty } from "./utils/function"
+import { MyButton } from "./components/MyButton"
 
 export const App = () => {
   const { list, isLoading, isError } = useAppSelector(state => state.quiz)
@@ -32,8 +33,6 @@ export const App = () => {
   const allCountQuestions = Array.from({ length }, (_, i) => i + 1)
 
   const onConfirmHandler = (id: string, answer: string[]) => {
-    console.log("onConfirmHandler answer", answer)
-
     if (!answer) return
 
     dispatch(addAnswer({ id, answer }))
@@ -46,29 +45,6 @@ export const App = () => {
     if (count === length) {
       dispatch(endQuiz())
     }
-  }
-
-  const prepareAnswers = (incorrectAnswerList: string[], correctAnswer: string) => {
-    // чтобы ответы были вразнобой
-    if (!!incorrectAnswerList?.length) {
-      let randomIndex = Math.floor(Math.random() * (incorrectAnswerList?.length + 1))
-      const preparedArr = [...incorrectAnswerList]
-      preparedArr.splice(randomIndex, 0, correctAnswer)
-      return preparedArr
-    } else {
-      return []
-    }
-  }
-
-  const calculateRightAnswers = (list: QuizItem[]) => {
-    let result = 0
-    list.forEach(el => {
-      if (answer[el.id][0] === el.correct_answer) {
-        result += 1
-      }
-    })
-
-    return result
   }
 
   const startNewQuizHandler = () => {
@@ -84,17 +60,13 @@ export const App = () => {
       {!isLoading && isError && (
         <WelcomeContainer>
           <DangerousErrorText>Error while fetch data</DangerousErrorText>
-          <Button active onClick={() => window.location.reload()}>
-            Try again
-          </Button>
+          <MyButton id="error-try-again-btn" isActive text=" Try again" handler={() => window.location.reload()} />
         </WelcomeContainer>
       )}
       {!isLoading && !isError && !isQuizEnded && count === 1 && (
         <WelcomeContainer>
           <H1>Welcome to quizz</H1>
-          <Button active onClick={() => scrollToQuestion("quiz-container")}>
-            start
-          </Button>
+          <MyButton id="start-btn" isActive handler={() => scrollToQuestion("quiz-container")} text="start" />
         </WelcomeContainer>
       )}
       {!isLoading && !isError && !isQuizEnded && (
@@ -111,7 +83,7 @@ export const App = () => {
           />
           <QuestionNumbers>
             {allCountQuestions.map(el => (
-              <QuestionNumber key={el} status={el === count ? "active" : "default"}>
+              <QuestionNumber key={el} id={`number-${el === count ? "active" : "default"}`} status={el === count ? "active" : "default"}>
                 {el}
               </QuestionNumber>
             ))}
@@ -120,7 +92,7 @@ export const App = () => {
       )}
       {isQuizEnded && (
         <Container tofullscreen={false}>
-          <H1>{"Right answers: " + calculateRightAnswers(list) + " / " + length}</H1>
+          <H1 id="right-answers-count">{"Right answers: " + calculateRightAnswersCount(list, answer) + " / " + length}</H1>
           {sortQuestionsByDifficulty(list).map(el => (
             <QuiestionCard
               key={el.id}
@@ -133,9 +105,7 @@ export const App = () => {
               correctAnswer={el.correct_answer}
             />
           ))}
-          <Button active onClick={startNewQuizHandler}>
-            Start again
-          </Button>
+          <MyButton id="start-again-btn" isActive handler={startNewQuizHandler} text="Start again" />
         </Container>
       )}
     </>

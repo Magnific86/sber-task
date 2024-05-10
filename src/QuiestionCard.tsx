@@ -59,8 +59,8 @@ export const QuiestionCard: FC<QuiestionCardProps> = ({
       <H3>{question}</H3>
       <H3 status={difficulty}>{difficulty}</H3>
       {!!allAnswers
-        ? allAnswers.map(el => (
-            <div key={el}>
+        ? allAnswers.map((el, index) => (
+            <div key={el} id={`answer_${index + 1}`}>
               {type === "multiple" ? (
                 <CheckboxInput
                   id={id}
@@ -82,7 +82,7 @@ export const QuiestionCard: FC<QuiestionCardProps> = ({
           ))
         : null}
       {!isQuizEnded && (
-        <Button active={!!tempAnswers} onClick={confirmHandler ? () => confirmHandler(id, tempAnswers) : () => {}}>
+        <Button id="confirm-btn" active={!!tempAnswers} onClick={confirmHandler ? () => confirmHandler(id, tempAnswers) : () => {}}>
           confirm
         </Button>
       )}

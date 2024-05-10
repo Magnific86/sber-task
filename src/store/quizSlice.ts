@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
-import { QuizItem, QuizItemNoId } from "../types/index.js"
-import { v4 } from "uuid"
-import { mock } from "./testQuizData"
+import { QuizItem } from "../types/index.js"
+import { mockQuizListData } from "src/tests/functionTestData"
+import { mapListToIds } from "src/utils/function"
 
 type QuizSliceState = {
   list: QuizItem[]
@@ -11,7 +11,7 @@ type QuizSliceState = {
 }
 
 const initialState: QuizSliceState = {
-  // list: mock.map(el => ({ ...el, id: v4() })),
+  // list: mapListToIds(mockQuizListData),
   list: [],
   isLoading: false,
   isError: false,
@@ -31,7 +31,7 @@ const slice = createSlice({
     builder.addCase(fetchQuizList.fulfilled, (state, action) => {
       state.isLoading = false
       state.isError = false
-      state.list = [...action.payload.map((el: QuizItemNoId) => ({ ...el, id: v4() }))]
+      state.list = [...mapListToIds(action.payload)]
     })
     builder.addCase(fetchQuizList.rejected, state => {
       state.isLoading = false

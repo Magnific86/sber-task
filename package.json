@@ -4,7 +4,11 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": "18.17.0"
+  },
   "dependencies": {
+    "@babel/preset-react": "^7.24.1",
     "@reduxjs/toolkit": "^2.2.3",
     "axios": "^1.6.8",
     "mocha": "^10.4.0",
@@ -24,7 +28,7 @@
     "build": "react-scripts build",
     "test": "jest",
     "eject": "react-scripts eject",
-    "wdio": "wdio run ./wdio.conf.ts"
+    "wdio": "wdio run ./wdio.conf.js"
   },
   "eslintConfig": {
     "extends": [
@@ -66,6 +70,7 @@
     "gh-pages": "^6.1.1",
     "jest": "^29.7.0",
     "ts-jest": "^29.1.2",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0"
   }
 }
