@@ -1,6 +1,7 @@
-const QUESTIONS_COUNT = 3
+const QUESTIONS_COUNT = 10
 const LOCALHOST_URL = "http://localhost:3000"
 const GH_PAGES_URL = "https://magnific86.github.io/sber-task/"
+const url = GH_PAGES_URL
 
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 
@@ -30,8 +31,7 @@ const answerQuestion = async questionNum => {
 
 describe("Тест викторины: ", () => {
   it("Нажать на кнопку get started и перейти к 1 вопросу: ", async () => {
-    // browser.url(GH_PAGES_URL)
-    browser.url(LOCALHOST_URL)
+    browser.url(url)
 
     const element = await $("#start-btn")
 
@@ -64,7 +64,6 @@ describe("Тест викторины: ", () => {
     await startAgainBtn.click()
 
     //active number 1 снова, викторина началась заново
-
     await checkActiveNumber(1)
   })
 })

@@ -62,17 +62,12 @@ export const prepareAnswers = (incorrectAnswerList: string[], correctAnswer: str
 }
 
 export const calculateRightAnswersCount = (list: QuizItem[], answerObj: Record<string, string[]>) => {
-  console.log("list", list)
-  console.log("answerObj", answerObj)
-
   let result = 0
   list.forEach(el => {
     if (answerObj[el.id][0] === el.correct_answer) {
       result += 1
     }
   })
-
-  console.log("result", result)
 
   return result
 }

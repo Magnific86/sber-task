@@ -1,17 +1,6 @@
 import { QuizItem, QuizItemNoId } from "../types/index.js"
 
-//Первый тест
-const QUESTION_ID = "2"
-const mockAnswer = { "1": ["first correct answer"], "2": ["second correct answer"], "3": ["third correct answer"] }
-const mockAnswerWithMistake = { "1": ["first correct answer"], "2": ["second incorrect answer"], "3": ["third correct answer"] }
-const firstCaseCorrectAnswer = "second correct answer"
-const correctAnswer = "second correct answer"
-const secondCaseIncorrectAnswer = "second incorrect answer"
-const thirdCaseAnswer = "some other answer"
-
-export { QUESTION_ID, mockAnswer, mockAnswerWithMistake, firstCaseCorrectAnswer, correctAnswer, secondCaseIncorrectAnswer, thirdCaseAnswer }
-
-//Второй тест
+// Данные для теста функции sortQuestionsByDifficulty
 export const entriesArr: QuizItem[] = [
   {
     id: "1",
@@ -129,7 +118,35 @@ export const sortedArr: QuizItem[] = [
   },
 ]
 
-// Тестовая дата ответа
+// Данные для теста функции detectRadioColor
+const QUESTION_ID = "2"
+const mockAnswer = { "1": ["first correct answer"], "2": ["second correct answer"], "3": ["third correct answer"] }
+const mockAnswerWithMistake = { "1": ["first correct answer"], "2": ["second incorrect answer"], "3": ["third correct answer"] }
+const firstCaseCorrectAnswer = "second correct answer"
+const correctAnswer = "second correct answer"
+const secondCaseIncorrectAnswer = "second incorrect answer"
+const thirdCaseAnswer = "some other answer"
+
+export { QUESTION_ID, mockAnswer, mockAnswerWithMistake, firstCaseCorrectAnswer, correctAnswer, secondCaseIncorrectAnswer, thirdCaseAnswer }
+
+// Данные для теста функции prepareAnswers
+export const incorrectAnswers = ["1 some incorrect", "2 some incorrect", "3 some incorrect"]
+
+// Данные для теста функции calculateRightAnswersCount
+export const mockQuizListDataAnswers = {
+  "2955e951-3e1a-42d0-ab1a-db1bc6869450": ["Franklin Roosevelt"],
+  "fd83ee2b-9552-4c55-89b8-29aa189921cb": ["Horse-Racing"],
+  "27c9e0c3-3554-41c3-8047-ab29a9a470c3": ["Ralph McQuarrie"],
+  "a23e2a6e-2f6a-46e5-b97d-b5ad2c1f7754": ["Coffee Lake"],
+  "04b27795-7de2-4515-8ae6-a4abd756143a": ["False"],
+  "4cd678d2-f285-4a9d-ba2a-b1889023a18b": ["The Legend of Zelda: Four Swords"],
+  "8738d134-c6d9-4b37-906a-838d7b99e596": ["Mars"],
+  "bfdc2948-cbe0-4c55-90c5-4b3906fe7a2f": ["Athena"],
+  "6fa4486d-114c-4761-9013-b221ad0ed244": ["155"],
+  "7be94712-fe9d-4d9a-999c-00ddbe224ec9": ["True"],
+}
+
+// Тестовый массив без ид
 export const mockQuizListData: QuizItemNoId[] = [
   {
     type: "multiple",
@@ -214,6 +231,7 @@ export const mockQuizListData: QuizItemNoId[] = [
   },
 ]
 
+// Тестовый массив с ид
 export const mockQuizListDataWithIds: QuizItem[] = [
   {
     type: "multiple",
@@ -307,16 +325,3 @@ export const mockQuizListDataWithIds: QuizItem[] = [
     id: "7be94712-fe9d-4d9a-999c-00ddbe224ec9",
   },
 ]
-
-export const mockQuizListDataAnswers = {
-  "2955e951-3e1a-42d0-ab1a-db1bc6869450": ["Franklin Roosevelt"],
-  "fd83ee2b-9552-4c55-89b8-29aa189921cb": ["Horse-Racing"],
-  "27c9e0c3-3554-41c3-8047-ab29a9a470c3": ["Ralph McQuarrie"],
-  "a23e2a6e-2f6a-46e5-b97d-b5ad2c1f7754": ["Coffee Lake"],
-  "04b27795-7de2-4515-8ae6-a4abd756143a": ["False"],
-  "4cd678d2-f285-4a9d-ba2a-b1889023a18b": ["The Legend of Zelda: Four Swords"],
-  "8738d134-c6d9-4b37-906a-838d7b99e596": ["Mars"],
-  "bfdc2948-cbe0-4c55-90c5-4b3906fe7a2f": ["Athena"],
-  "6fa4486d-114c-4761-9013-b221ad0ed244": ["155"],
-  "7be94712-fe9d-4d9a-999c-00ddbe224ec9": ["True"],
-}

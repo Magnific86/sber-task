@@ -12,6 +12,7 @@ import {
   mockQuizListDataWithIds,
   mockQuizListDataAnswers,
   mockQuizListData,
+  incorrectAnswers,
 } from "./functionTestData"
 
 describe("Тестирование функции mapListToIds: ", () => {
@@ -55,16 +56,12 @@ describe("Тестирование функции sortQuestionsByDifficulty", ()
   })
 })
 
-const incorrectAnswers = ["1 some incorrect", "2 some incorrect", "3 some incorrect"]
-
 describe("Тестирование функции prepareAnswers: ", () => {
   it("Рандомно добавить в массив неправильных ответов правильный: ", () => {
     const resultAnswers = prepareAnswers(incorrectAnswers, correctAnswer)
 
-    console.log("resultAnswers", resultAnswers)
-
     expect(resultAnswers.includes(correctAnswer)).toBe(true)
-    expect(resultAnswers?.length).toBe(4)
+    expect(resultAnswers.length).toBe(4)
   })
 })
 
