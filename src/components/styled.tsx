@@ -38,12 +38,17 @@ export const DangerousErrorText = styled.h1`
   color: red;
 `
 
-export const Container = styled.div<{ tofullscreen?: boolean }>`
+export const Container = styled.div<{ tofullscreen?: boolean; rounded?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: ${props => (props.rounded ? "50em" : "")};
+  margin: ${props => (props.rounded ? "20px 0 0 0" : "0")};
   height: ${props => (props.tofullscreen ? "100vh" : "100%")};
+  border: ${props => (props.rounded ? "1px solid #fff" : "")};
+  padding: ${props => (props.rounded ? "20px 10px" : "0")};
+  border-radius: ${props => (props?.rounded ? "10%" : "0")};
   gap: 40px;
 `
 
@@ -62,6 +67,7 @@ export const Button = styled.button<{ active?: boolean }>(props => ({
   background: props.active ? "#FFFFFF" : "#5F5F5F",
   color: "#1C1C1C",
   padding: "16px 32px",
+  fontSize: 18,
   borderRadius: 40,
   boxShadow: props.active ? "0 4px 4px white" : "",
 }))

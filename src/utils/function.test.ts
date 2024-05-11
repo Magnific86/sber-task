@@ -1,4 +1,4 @@
-import { calculateRightAnswersCount, detectRadioColor, mapListToIds, prepareAnswers, sortQuestionsByDifficulty } from "../utils/function"
+import { calculateRightAnswersCount, detectRadioColor, mapListToIds, prepareAnswers, sortQuestionsByDifficulty } from "./function"
 import {
   QUESTION_ID,
   correctAnswer,
@@ -13,7 +13,7 @@ import {
   mockQuizListDataAnswers,
   mockQuizListData,
   incorrectAnswers,
-} from "./functionTestData"
+} from "../const/functionTestData"
 
 describe("Тестирование функции mapListToIds: ", () => {
   it("Тестирование базового функционала функции: ", () => {

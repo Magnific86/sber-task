@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
 import { QuizItem } from "../types/index.js"
-import { mockQuizListData } from "src/tests/functionTestData"
+import { mockQuizListData } from "src/const/functionTestData"
 import { mapListToIds } from "src/utils/function"
 
 type QuizSliceState = {

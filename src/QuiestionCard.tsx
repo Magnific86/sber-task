@@ -13,6 +13,7 @@ type QuiestionCardProps = {
   type: QuestionType
   allAnswers: string[]
   correctAnswer: string
+  isLastQuestion: boolean
   confirmHandler?: (id: string, answers: string[]) => void
 }
 
@@ -24,6 +25,7 @@ export const QuiestionCard: FC<QuiestionCardProps> = ({
   allAnswers,
   type,
   correctAnswer,
+  isLastQuestion,
   confirmHandler,
 }) => {
   const { isQuizEnded } = useAppSelector(state => state.answer)
@@ -35,10 +37,7 @@ export const QuiestionCard: FC<QuiestionCardProps> = ({
   }, [id])
 
   const checkboxAnswerHandler = (str: string, bool: ChangeEvent<HTMLInputElement>) => {
-    const boolValue = bool.target.value
-    console.log("answerHandler boolValue: ", boolValue)
-    console.log("str", str)
-    if (!!boolValue) {
+    if (!!bool.target.value) {
       setTempAnswers([...tempAnswers, str])
     } else {
       setTempAnswers([...tempAnswers.filter(answ => answ !== str)])
@@ -46,15 +45,13 @@ export const QuiestionCard: FC<QuiestionCardProps> = ({
   }
 
   const radioAnswerHandler = (str: string, bool: ChangeEvent<HTMLInputElement>) => {
-    const boolValue = bool.target.value
-    console.log("radioAnswerHandler boolValue: ", boolValue)
-    if (!!boolValue) {
+    if (!!bool.target.value) {
       setTempAnswers([str])
     }
   }
 
   return (
-    <Container>
+    <Container rounded>
       <H1>{category}</H1>
       <H3>{question}</H3>
       <H3 status={difficulty}>{difficulty}</H3>
@@ -82,8 +79,8 @@ export const QuiestionCard: FC<QuiestionCardProps> = ({
           ))
         : null}
       {!isQuizEnded && (
-        <Button id="confirm-btn" active={!!tempAnswers} onClick={confirmHandler ? () => confirmHandler(id, tempAnswers) : () => {}}>
-          confirm
+        <Button id="confirm-btn" active={!!tempAnswers?.length} onClick={confirmHandler ? () => confirmHandler(id, tempAnswers) : () => {}}>
+          {isLastQuestion ? "see results" : "confirm"}
         </Button>
       )}
     </Container>

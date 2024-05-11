@@ -27,8 +27,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "jest",
-    "eject": "react-scripts eject",
-    "wdio": "wdio run ./wdio.conf.js"
+    "test:e2e": "wdio run ./wdio.conf.js",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

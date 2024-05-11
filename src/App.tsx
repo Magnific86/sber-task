@@ -32,17 +32,17 @@ export const App = () => {
 
   const allCountQuestions = Array.from({ length }, (_, i) => i + 1)
 
-  const onConfirmHandler = (id: string, answer: string[]) => {
-    if (!answer) return
+  const onConfirmHandler = (id: string, answers: string[]) => {
+    if (!answers?.length) return
 
-    dispatch(addAnswer({ id, answer }))
+    dispatch(addAnswer({ id, answer: answers }))
 
     if (count <= length) {
       setCurrentQuestion(list[count])
       setCount(prev => prev + 1)
     }
 
-    if (count === length) {
+    if (isLastQuestion) {
       dispatch(endQuiz())
     }
   }
@@ -53,6 +53,8 @@ export const App = () => {
     setCurrentQuestion(list[0])
     window.scrollTo(0, 0)
   }
+
+  const isLastQuestion = count === length
 
   return (
     <>
@@ -79,6 +81,7 @@ export const App = () => {
             question={currentQuestion?.question}
             allAnswers={prepareAnswers(currentQuestion?.incorrect_answers, currentQuestion?.correct_answer)}
             correctAnswer={currentQuestion?.correct_answer}
+            isLastQuestion={isLastQuestion}
             confirmHandler={onConfirmHandler}
           />
           <QuestionNumbers>
@@ -103,6 +106,7 @@ export const App = () => {
               difficulty={el.difficulty}
               allAnswers={prepareAnswers(el.incorrect_answers, el.correct_answer)}
               correctAnswer={el.correct_answer}
+              isLastQuestion={isLastQuestion}
             />
           ))}
           <MyButton id="start-again-btn" isActive handler={startNewQuizHandler} text="Start again" />
