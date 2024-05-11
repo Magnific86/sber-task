@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/sber-task/static/css/main.c049d542.css",
-    "main.js": "/sber-task/static/js/main.a1846d8e.js",
+    "main.js": "/sber-task/static/js/main.0cc5e0ab.js",
     "index.html": "/sber-task/index.html",
     "main.c049d542.css.map": "/sber-task/static/css/main.c049d542.css.map",
-    "main.a1846d8e.js.map": "/sber-task/static/js/main.a1846d8e.js.map"
+    "main.0cc5e0ab.js.map": "/sber-task/static/js/main.0cc5e0ab.js.map"
   },
   "entrypoints": [
     "static/css/main.c049d542.css",
-    "static/js/main.a1846d8e.js"
+    "static/js/main.0cc5e0ab.js"
   ]
 }
