@@ -15,20 +15,21 @@ import {
   incorrectAnswers,
 } from "../const/functionTestData"
 
+export const hasEqualStructure = (obj1: Record<string, any>, obj2: Record<string, any>) => {
+  return Object.keys(obj1).every((key: string): boolean => {
+    const v = obj1[key]
+    if (typeof v === "object" && v !== null) {
+      return hasEqualStructure(v, obj2[key])
+    }
+    return obj2.hasOwnProperty(key)
+  })
+}
+
 describe("Тестирование функции mapListToIds: ", () => {
   it("Тестирование базового функционала функции: ", () => {
     const arrWithIds = mapListToIds(mockQuizListData)
 
     // Проверяем структурную идентичность
-    const hasEqualStructure = (obj1: Record<string, any>, obj2: Record<string, any>) => {
-      return Object.keys(obj1).every((key: string): boolean => {
-        const v = obj1[key]
-        if (typeof v === "object" && v !== null) {
-          return hasEqualStructure(v, obj2[key])
-        }
-        return obj2.hasOwnProperty(key)
-      })
-    }
 
     expect(hasEqualStructure(arrWithIds, mockQuizListDataWithIds)).toBe(true)
   })

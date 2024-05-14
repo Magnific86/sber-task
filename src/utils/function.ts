@@ -1,7 +1,7 @@
 import { v4 } from "uuid"
-import { QuizItem, QuizItemNoId, Status } from "../types/index.js"
+import { QuizItem, QuizItemNoId, Status } from "../types/index"
 
-export const mapListToIds = (list: QuizItemNoId[]): QuizItem[] => list.map(el => ({ ...el, id: v4() }))
+export const mapListToIds = (list: QuizItemNoId[]): QuizItem[] => (!!list?.length ? list.map(el => ({ ...el, id: v4() })) : [])
 
 export const detectRadioColor = (id: string, thisAnswerStr: string, correctAnswer: string, answer: Record<string, string[]>): Status => {
   //ответ правильный всегда один не смотря даже не то, что есть выбор нескольких вариантов

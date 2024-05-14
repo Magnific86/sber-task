@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { PayloadAnswer } from "src/types"
 
 type AnsersSliceState = {
   answer: Record<string, string[]>
@@ -10,10 +11,7 @@ const initialState: AnsersSliceState = {
   isQuizEnded: false,
 }
 
-type PayloadAnswer = {
-  id: string
-  answer: string[]
-}
+
 
 const slice = createSlice({
   name: "answer",

@@ -10,8 +10,10 @@ import { calculateRightAnswersCount, prepareAnswers, scrollToQuestion, sortQuest
 import { MyButton } from "./components/MyButton"
 
 export const App = () => {
-  const { list, isLoading, isError } = useAppSelector(state => state.quiz)
+  const { list, isLoading, error } = useAppSelector(state => state.quiz)
   const { answer, isQuizEnded } = useAppSelector(state => state.answer)
+
+  const isError = !!error
 
   const [count, setCount] = useState<number>(1)
   const [currentQuestion, setCurrentQuestion] = useState<QuizItem>(list[0])
@@ -61,8 +63,8 @@ export const App = () => {
       {isLoading && <Loader />}
       {!isLoading && isError && (
         <WelcomeContainer>
-          <DangerousErrorText>Error while fetch data</DangerousErrorText>
-          <MyButton id="error-try-again-btn" isActive text=" Try again" handler={() => window.location.reload()} />
+          <DangerousErrorText>{error}</DangerousErrorText>
+          <MyButton id="error-try-again-btn" isActive text="Try again" handler={() => window.location.reload()} />
         </WelcomeContainer>
       )}
       {!isLoading && !isError && !isQuizEnded && count === 1 && (

@@ -1,48 +1,61 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { Action, PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
-import { QuizItem } from "../types/index.js"
-import { mockQuizListData } from "src/const/functionTestData"
-import { mapListToIds } from "src/utils/function"
+import { QuizItem } from "../types/index"
+import { mapListToIds } from "../utils/function"
+// для тестов
+// import { mockQuizListData } from "src/const/functionTestData"
 
 type QuizSliceState = {
   list: QuizItem[]
   isLoading: boolean
-  isError: boolean
+  error: string | null
 }
+
+type AxiosReduxErrorAction<T> = PayloadAction<T> & Record<"error", Error>
 
 const initialState: QuizSliceState = {
   // list: mapListToIds(mockQuizListData),
   list: [],
   isLoading: false,
-  isError: false,
+  error: null,
 }
 
 const slice = createSlice({
   name: "quizList",
   initialState,
-  reducers: {
-    getList(state) {},
-  },
+  reducers: {},
   extraReducers: builder => {
-    builder.addCase(fetchQuizList.pending, state => {
-      state.isLoading = true
-      state.isError = false
-    })
-    builder.addCase(fetchQuizList.fulfilled, (state, action) => {
-      state.isLoading = false
-      state.isError = false
-      state.list = [...mapListToIds(action.payload)]
-    })
-    builder.addCase(fetchQuizList.rejected, state => {
-      state.isLoading = false
-      state.isError = true
-    })
+    builder
+      .addCase(fetchQuizList.pending, state => {
+        state.isLoading = true
+        state.error = null
+      })
+      .addCase(fetchQuizList.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.error = null
+        state.list = [...mapListToIds(action.payload)]
+      })
+      .addMatcher(isError, (state, action: AxiosReduxErrorAction<Error>) => {
+        state.isLoading = false
+
+        if (!!action?.error) {
+          state.error = action.error.message
+        } else {
+          state.error = action.payload.message
+        }
+      })
   },
 })
 
-export const fetchQuizList = createAsyncThunk("quizList/fetchQuizList", async () => {
-  const response = await axios.get("https://opentdb.com/api.php?amount=10")
-  return response.data.results
+const isError = (action: Action) => action.type.endsWith("rejected")
+
+export const fetchQuizList = createAsyncThunk("quizList/fetchQuizList", async (_, { rejectWithValue }) => {
+  try {
+    const resp = await axios.get("https://opentdb.com/api.php?amount=10")
+    return resp.data.results
+  } catch (err) {
+    return rejectWithValue(err)
+  }
 })
 
 export const quizSlice = slice.reducer

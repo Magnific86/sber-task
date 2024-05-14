@@ -11,6 +11,11 @@ export interface QuizItem extends QuizItemNoId {
   id: string
 }
 
+export type PayloadAnswer = {
+  id: string
+  answer: string[]
+}
+
 export type Status = "success" | "error" | "default"
 
 export type QuestionType = "multiple" | "boolean"
